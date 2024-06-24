@@ -1,13 +1,14 @@
 token = require("./config.json").TOKEN;
 const { Client, IntentsBitField } = require("discord.js");
-const https = require('https');
 
 const noaa_json_url = "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json" 
 
 // Should be a helper function
 var getJSON = function(url, callback) {
-  
+
 };
+
+
 
 const client = new Client({
   intents: [
@@ -20,7 +21,9 @@ const client = new Client({
 
 client.on("ready", (c) => {
   console.log(`✅ ${c.user.tag} is online.`);
-  
+});
+
+function fetchNoaaJson() {
   https.get(noaa_json_url, res => {
     let data = [];
     const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
@@ -42,8 +45,7 @@ client.on("ready", (c) => {
   }).on('error', err => {
     console.log('Error: ', err.message);
   });
-  
-});
+}
 
 client.on("messageCreate", (message) => {
   if (message.author.bot) {
